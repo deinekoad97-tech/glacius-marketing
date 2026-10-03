@@ -427,6 +427,79 @@ linear-gradient(135deg,#151b16,#0d100e)}
 @media(max-width:1050px){.hero-photo-card{opacity:.38;width:52vw}}
 @media(max-width:820px){.hero-photo-card{right:-28%;width:88vw;height:560px;opacity:.25}.team-monogram{height:180px}}
 
+
+/* ===== HUBSPOT CONTACT POPUP ===== */
+.contact-popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.contact-popup.active{display:flex;}
+.contact-popup-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.contact-popup-content{
+  position:relative;
+  z-index:2;
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  background:#f2efe6;
+  color:#101210;
+  border-radius:24px;
+  padding:42px;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+.contact-popup-close{
+  position:absolute;
+  top:15px;
+  right:19px;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:#101210;
+  color:#f2efe6;
+  font-size:28px;
+  line-height:1;
+  cursor:pointer;
+}
+.contact-popup-header{padding-right:42px;margin-bottom:28px;}
+.contact-popup-label{
+  display:block;
+  margin-bottom:12px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.15em;
+}
+.contact-popup-header h2{
+  margin:0 0 12px;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(34px,5vw,56px);
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+.contact-popup-header p{
+  margin:0;
+  max-width:470px;
+  color:#555b55;
+  line-height:1.55;
+}
+body.popup-open{overflow:hidden;}
+.contact-popup .hs-form-frame{min-height:300px;}
+@media(max-width:650px){
+  .contact-popup{padding:10px;}
+  .contact-popup-content{padding:34px 20px 24px;border-radius:18px;}
+}
+
 </style>
 </head>
 <body>
@@ -443,9 +516,12 @@ linear-gradient(135deg,#151b16,#0d100e)}
       <a href="#services">ПОСЛУГИ</a>
       <a href="#cases">КЕЙСИ</a>
       <a href="#team">КОМАНДА</a>
-      <a href="#footer">КОНТАКТИ</a>
+      <a href="#" onclick="openContactForm(); return false;">ЗВʼЯЗАТИСЬ З НАМИ</a>
     </div>
-    <button class="btn btn-ghost" style="padding:10px 20px; font-size:11px;" onclick="goTo('quiz')">Пройти квіз</button>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button class="btn btn-ghost" style="padding:10px 20px; font-size:11px;" onclick="goTo('quiz')">Пройти квіз</button>
+      <button class="btn btn-cream" style="padding:10px 20px; font-size:11px;" onclick="openContactForm()">Звʼязатись з нами</button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -999,7 +1075,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<elevenlabs-convai agent-id="agent_2101m3fd9zkbemw86aaq50shcpac"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+<!-- ===== HUBSPOT CONTACT POPUP ===== -->
+<div id="contactPopup" class="contact-popup" aria-hidden="true">
+  <div class="contact-popup-overlay" onclick="closeContactForm()"></div>
+
+  <div class="contact-popup-content" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
+    <button class="contact-popup-close" type="button" aria-label="Закрити" onclick="closeContactForm()">×</button>
+
+    <div class="contact-popup-header">
+      <span class="contact-popup-label">GLACIUS MARKETING</span>
+      <h2 id="contactPopupTitle">ЗВʼЯЖІТЬСЯ З НАМИ</h2>
+      <p>Розкажіть трохи про ваш бізнес — і ми звʼяжемося з вами.</p>
+    </div>
+
+    <!-- HubSpot Form -->
+    <div
+      class="hs-form-frame"
+      data-region="eu1"
+      data-form-id="f4037438-3265-43d3-a99e-04722d311680"
+      data-portal-id="149475680">
+    </div>
+  </div>
+</div>
+
+<script>
+function openContactForm() {
+  const popup = document.getElementById('contactPopup');
+  popup.classList.add('active');
+  popup.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('popup-open');
+}
+
+function closeContactForm() {
+  const popup = document.getElementById('contactPopup');
+  popup.classList.remove('active');
+  popup.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('popup-open');
+}
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') closeContactForm();
+});
+</script>
 
 <!-- Start of HubSpot Tracking Embed Code -->
 <script
@@ -1011,19 +1129,13 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <!-- End of HubSpot Tracking Embed Code -->
 
-
 <!-- Start of HubSpot Form Embed Code -->
 <script
   src="https://js-eu1.hsforms.net/forms/embed/149475680.js"
   defer>
 </script>
+<!-- End of HubSpot Form Embed Code -->
 
-<div
-  class="hs-form-frame"
-  data-region="eu1"
-  data-form-id="f4037438-3265-43d3-a99e-04722d311680"
-  data-portal-id="149475680">
-</div>
-<!-- End of HubSpot Form Embed Code -->  
+<elevenlabs-convai agent-id="agent_2101m3fd9zkbemw86aaq50shcpac"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
 </html>
