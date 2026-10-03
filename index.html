@@ -430,7 +430,7 @@ linear-gradient(135deg,#151b16,#0d100e)}
 
 /* ===== HUBSPOT CONTACT POPUP ===== */
 .contact-popup{
-  display:none;
+  display:flex;
   position:fixed;
   inset:0;
   z-index:999999;
@@ -438,7 +438,17 @@ linear-gradient(135deg,#151b16,#0d100e)}
   justify-content:center;
   padding:20px;
 }
-.contact-popup.active{display:flex;}
+.contact-popup{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .22s ease, visibility .22s ease;
+}
+.contact-popup.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
 .contact-popup-overlay{
   position:absolute;
   inset:0;
@@ -1135,6 +1145,18 @@ document.addEventListener('keydown', function(event) {
   defer>
 </script>
 <!-- End of HubSpot Form Embed Code -->
+
+<script>
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    const frame = document.querySelector('#contactPopup .hs-form-frame');
+    if (frame && frame.children.length === 0 && !frame.querySelector('iframe')) {
+      console.warn('HubSpot form has not rendered yet.');
+    }
+  }, 5000);
+});
+</script>
+
 
 <elevenlabs-convai agent-id="agent_2101m3fd9zkbemw86aaq50shcpac"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
