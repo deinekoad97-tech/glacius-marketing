@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLACIUS — маркетинг без води</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#111417;
+    --bg-2:#1a1c1f;
+    --panel:#232527;
+    --panel-border:rgba(255,255,255,0.12);
+    --cream:#F3E9D8;
+    --ice:#7C93AD;
+    --ice-bright:#9DB4CC;
+    --body-lo:#8f9294;
+    --body-hi:#D9D9D9;
+    --body-mid:#B8B8B8;
+    --radius:3px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--body-hi);
+    font-family:'Manrope', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .headline{
+    font-family:'Archivo Black', 'Manrope', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+  }
+  .eyebrow{
+    font-style:italic;
+    color:var(--body-mid);
+    font-size:14px;
+    letter-spacing:0.02em;
+    display:inline-block;
+    margin-bottom:18px;
+  }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 32px;
+    background:linear-gradient(to bottom, rgba(17,20,23,0.92), rgba(17,20,23,0));
+    backdrop-filter:blur(6px);
+  }
+  .wordmark{ font-family:'Archivo Black',sans-serif; font-size:20px; letter-spacing:0.02em; color:var(--cream); }
+  .wordmark span{ color:var(--ice); }
+  .navlinks{ display:flex; gap:34px; font-size:12px; letter-spacing:0.12em; color:var(--body-mid); }
+  .navlinks a:hover{ color:var(--cream); }
+  @media (max-width:720px){ .navlinks{display:none;} }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 30px;
+    text-transform:uppercase; font-weight:700; font-size:13px; letter-spacing:0.08em;
+    border-radius:2px;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-cream{ background:var(--cream); color:#15181a; }
+  .btn-cream:hover{ opacity:.92; }
+  .btn-ghost{ background:transparent; color:var(--cream); border:1px solid rgba(243,233,216,0.35); }
+  .btn-ghost:hover{ border-color:var(--cream); }
+  .btn-dark{ background:#15181a; color:var(--cream); }
+  .btn:disabled{ opacity:.35; cursor:not-allowed; transform:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:60px 32px 90px;
+    background:
+      radial-gradient(ellipse 900px 500px at 78% 8%, rgba(124,147,173,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(124,147,173,0.10), transparent 60%),
+      var(--bg);
+  }
+  .hero-inner{ max-width:1180px; margin:0 auto; width:100%; }
+  .hero h1{
+    font-size:clamp(2.6rem, 7.4vw, 6.4rem);
+    display:flex; flex-direction:column; gap:2px;
+  }
+  .hero h1 .l1{ color:var(--cream); }
+  .hero h1 .l2{ color:var(--ice); align-self:flex-end; text-align:right; }
+  .divider{
+    display:flex; align-items:center; gap:14px; margin:10px 0 26px;
+    opacity:.55;
+  }
+  .divider .star{ color:var(--cream); font-size:16px; }
+  .divider .line{ flex:0 0 260px; height:1px; background:var(--cream); max-width:40vw; }
+  .hero-lower{
+    display:grid; grid-template-columns:1fr 1fr; gap:50px;
+    margin-top:56px; align-items:end;
+  }
+  .hero-mission{
+    text-transform:uppercase; font-weight:700; font-size:14px;
+    line-height:1.7; color:var(--body-mid); letter-spacing:0.03em;
+    max-width:360px;
+  }
+  .hero-pitch p{ color:var(--body-hi); font-size:16px; line-height:1.7; max-width:420px; margin-bottom:26px; }
+  @media (max-width:820px){
+    .hero-lower{ grid-template-columns:1fr; gap:28px; }
+  }
+  .hero-foot{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-top:70px; font-size:12px; letter-spacing:0.1em; color:var(--body-lo); text-transform:uppercase;
+  }
+
+  /* ---------- STATS ---------- */
+  .section{ padding:100px 32px; }
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+  }
+  @media (max-width:900px){ .stats-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .stats-grid{ grid-template-columns:1fr; } }
+  .stat-card{
+    border:1px solid var(--panel-border); background:var(--panel);
+    padding:26px; min-height:200px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .stat-card.photo{
+    background:
+      linear-gradient(180deg, rgba(17,20,23,0.15), rgba(17,20,23,0.75)),
+      linear-gradient(135deg,#3a4753,#161a1d);
+  }
+  .stat-label{ font-size:13px; color:var(--body-mid); max-width:140px; line-height:1.4; }
+  .stat-num{ font-weight:800; font-size:clamp(2.2rem,4.6vw,3.6rem); color:var(--cream); align-self:flex-end; font-family:'Archivo Black',sans-serif; }
+
+  /* ---------- SERVICES ---------- */
+  .sec-head{ margin-bottom:60px; max-width:760px; }
+  .sec-head h2{ font-size:clamp(1.9rem,4.6vw,3.4rem); }
+  .sec-head h2 .l1{ color:var(--cream); display:block; }
+  .sec-head h2 .l2{ color:var(--ice); display:block; margin-left:8%; }
+
+  .service-row{
+    display:grid; grid-template-columns:70px 1fr 140px;
+    gap:32px; align-items:center;
+    padding:44px 0; border-top:1px solid var(--panel-border);
+  }
+  .service-row:last-child{ border-bottom:1px solid var(--panel-border); }
+  .service-idx{ font-family:'Archivo Black',sans-serif; color:var(--ice); font-size:22px; }
+  .service-title{ text-transform:uppercase; font-weight:800; font-size:clamp(1.1rem,2.2vw,1.5rem); color:var(--cream); margin-bottom:10px; line-height:1.2; }
+  .service-desc{ color:var(--body-mid); font-size:15px; line-height:1.7; max-width:560px; }
+  .service-thumb{
+    width:120px; height:120px; border-radius:2px; justify-self:end;
+    background:linear-gradient(135deg,#4a5966,#1c2124);
+  }
+  @media (max-width:760px){
+    .service-row{ grid-template-columns:40px 1fr; }
+    .service-thumb{ display:none; }
+  }
+
+  /* ---------- CASES ---------- */
+  .case-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:50px;
+    padding:50px 0; border-top:1px solid var(--panel-border);
+    align-items:center;
+  }
+  .case-row:last-child{ border-bottom:1px solid var(--panel-border); }
+  .case-client{ color:var(--ice-bright); text-transform:uppercase; font-weight:800; font-size:clamp(1.4rem,3vw,2.1rem); margin-bottom:18px; }
+  .case-stats{ display:flex; gap:30px; margin-bottom:18px; flex-wrap:wrap; }
+  .case-stats div{ display:flex; flex-direction:column; }
+  .case-stats b{ font-family:'Archivo Black',sans-serif; color:var(--cream); font-size:22px; }
+  .case-stats span{ font-size:12px; color:var(--body-lo); text-transform:uppercase; }
+  .case-desc{ color:var(--body-mid); font-size:15px; line-height:1.7; max-width:440px; }
+  .case-photo{ height:220px; border-radius:2px; background:linear-gradient(135deg,#3e4a53,#181b1d); }
+  @media (max-width:760px){ .case-row{ grid-template-columns:1fr; } .case-photo{order:-1; height:160px;} }
+
+  /* ---------- CTA BANNER (bright) ---------- */
+  .banner{
+    position:relative; padding:110px 32px;
+    background:
+      linear-gradient(180deg, rgba(233,236,238,0.94), rgba(214,220,224,0.88)),
+      linear-gradient(135deg,#c7ceD3,#a8b2ba);
+    color:#15181a;
+  }
+  .banner::before, .banner::after{
+    content:""; position:absolute; left:0; right:0; height:1px;
+    background:repeating-linear-gradient(90deg, rgba(21,24,26,0.25) 0 22px, transparent 22px 34px);
+  }
+  .banner::before{ top:28px; } .banner::after{ bottom:28px; }
+  .banner-inner{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .banner .eyebrow{ color:#4b555c; }
+  .banner h2{ font-size:clamp(2rem,4.6vw,3.2rem); }
+  .banner h2 .l1{ color:#14181b; display:block; }
+  .banner h2 .l2{ color:#3c5470; display:block; }
+  .banner-benefit{ margin-top:22px; text-transform:uppercase; font-weight:700; font-size:14px; line-height:1.8; color:#3a4348; max-width:340px; }
+  @media (max-width:820px){ .banner-inner{ grid-template-columns:1fr; } }
+
+  /* ---------- TEAM (compact) ---------- */
+  .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  .team-card:nth-child(2){ margin-top:46px; }
+  .team-photo{ aspect-ratio:1; border-radius:2px; background:linear-gradient(160deg,#e7e2d8,#b9b3a6); margin-bottom:14px; }
+  .team-name{ text-transform:uppercase; font-weight:800; color:var(--cream); font-size:14px; }
+  .team-role{ color:var(--body-lo); font-size:13px; margin-top:2px; }
+  @media (max-width:820px){ .team-grid{ grid-template-columns:1fr 1fr; } .team-card:nth-child(2){margin-top:0;} }
+
+  /* ---------- FOOTER / CONTACT-LIKE CLOSE ---------- */
+  .footer{
+    position:relative; padding:90px 32px 40px; overflow:hidden;
+    background:linear-gradient(180deg, var(--bg-2), #0d0f11);
+    border-top:1px solid var(--panel-border);
+  }
+  .footer-inner{ max-width:1180px; margin:0 auto; }
+  .footer-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:70px; }
+  .footer-cols{ display:flex; gap:70px; flex-wrap:wrap; }
+  .footer-col h4{ font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--body-lo); margin-bottom:14px; }
+  .footer-col p, .footer-col a{ font-size:14px; color:var(--body-mid); line-height:1.9; display:block; }
+  .footer-col a:hover{ color:var(--cream); }
+  .footer-huge{
+    font-family:'Archivo Black',sans-serif; text-transform:uppercase;
+    font-size:clamp(2.4rem,10vw,8rem); color:var(--cream); opacity:0.08;
+    white-space:nowrap; letter-spacing:-0.01em; line-height:1;
+    margin:0 -32px;
+    -webkit-mask-image:linear-gradient(90deg, black 70%, transparent 100%);
+    mask-image:linear-gradient(90deg, black 70%, transparent 100%);
+  }
+  .footer-legal{ margin-top:30px; font-size:12px; color:var(--body-lo); }
+
+  /* =====================================================
+     QUIZ / FORM / THANKS — full-screen app-like sections
+     ===================================================== */
+  .flow-screen{
+    display:none;
+    min-height:100vh;
+    padding:100px 24px 60px;
+    background:
+      radial-gradient(ellipse 800px 500px at 82% 0%, rgba(124,147,173,0.14), transparent 60%),
+      var(--bg);
+    align-items:flex-start; justify-content:center;
+  }
+  .flow-screen.active{ display:flex; }
+  .flow-card{ width:100%; max-width:680px; }
+
+  .flow-topbar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:36px; }
+  .flow-close{ font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--body-lo); border:1px solid var(--panel-border); padding:9px 16px; border-radius:2px; }
+  .flow-close:hover{ color:var(--cream); border-color:var(--cream); }
+
+  .progress-wrap{ margin-bottom:44px; }
+  .progress-meta{ display:flex; justify-content:space-between; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--body-lo); margin-bottom:10px; }
+  .progress-meta b{ color:var(--ice-bright); }
+  .progress-track{ height:3px; background:var(--panel); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; background:linear-gradient(90deg,var(--ice),var(--cream)); width:0%; transition:width .45s cubic-bezier(.4,0,.2,1); }
+
+  .q-eyebrow{ font-style:italic; color:var(--body-mid); font-size:13px; margin-bottom:14px; }
+  .q-title{ font-size:clamp(1.5rem,3.6vw,2.3rem); line-height:1.25; color:var(--cream); font-weight:700; margin-bottom:34px; }
+
+  .options{ display:flex; flex-direction:column; gap:12px; margin-bottom:40px; }
+  .opt{
+    display:flex; align-items:center; gap:16px;
+    padding:20px 22px;
+    border:1px solid var(--panel-border); background:var(--panel);
+    border-radius:2px; text-align:left; width:100%;
+    color:var(--body-hi); font-size:15px; font-weight:500;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .opt:hover{ border-color:rgba(124,147,173,0.6); }
+  .opt.selected{ border-color:var(--ice-bright); background:#262a2d; color:var(--cream); }
+  .opt .mark{
+    flex:0 0 20px; height:20px; border-radius:50%;
+    border:1px solid var(--body-lo); position:relative;
+  }
+  .opt.selected .mark{ border-color:var(--ice-bright); }
+  .opt.selected .mark::after{
+    content:""; position:absolute; inset:4px; border-radius:50%; background:var(--ice-bright);
+  }
+
+  .flow-nav{ display:flex; justify-content:space-between; align-items:center; }
+  .link-back{ font-size:13px; color:var(--body-lo); text-transform:uppercase; letter-spacing:0.06em; }
+  .link-back:hover{ color:var(--cream); }
+
+  /* transition / teaser screen */
+  .teaser-star{ font-size:30px; color:var(--ice-bright); margin-bottom:22px; }
+  .teaser h2{ font-size:clamp(1.8rem,4.4vw,2.7rem); color:var(--cream); margin-bottom:18px; line-height:1.15; }
+  .teaser p{ color:var(--body-mid); font-size:16px; line-height:1.8; max-width:520px; margin-bottom:36px; }
+
+  /* form */
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:var(--body-lo); margin-bottom:8px; }
+  .field input{
+    width:100%; padding:16px 18px; background:var(--panel);
+    border:1px solid var(--panel-border); color:var(--cream);
+    font-family:inherit; font-size:15px; border-radius:2px; outline:none;
+  }
+  .field input:focus{ border-color:var(--ice-bright); }
+  .field input::placeholder{ color:var(--body-lo); }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:560px){ .field-row{ grid-template-columns:1fr; } }
+  .consent{ display:flex; gap:12px; align-items:flex-start; font-size:13px; color:var(--body-mid); line-height:1.6; margin:22px 0 30px; }
+  .consent input{ margin-top:3px; }
+  .form-error{ color:#d98a7c; font-size:13px; margin:-6px 0 16px; display:none; }
+
+  .thanks-icon{
+    width:56px; height:56px; border-radius:50%;
+    border:1px solid var(--ice-bright); display:flex; align-items:center; justify-content:center;
+    color:var(--ice-bright); font-size:24px; margin-bottom:30px;
+  }
+  .thanks h2{ font-size:clamp(1.9rem,4.6vw,2.8rem); color:var(--cream); margin-bottom:16px; }
+  .thanks p{ color:var(--body-mid); font-size:16px; line-height:1.8; max-width:500px; margin-bottom:14px; }
+  .thanks .steps{ margin:30px 0 40px; display:flex; flex-direction:column; gap:14px; }
+  .thanks .steps div{ display:flex; gap:14px; align-items:baseline; font-size:14px; color:var(--body-mid); }
+  .thanks .steps b{ color:var(--ice-bright); font-family:'Archivo Black',sans-serif; font-size:14px; }
+
+  .visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+/* ===== GLACIUS 2.0 — premium editorial redesign ===== */
+:root{
+  --bg:#0b0d0c;--bg-2:#101311;--panel:#151916;
+  --panel-border:rgba(238,241,226,.14);--cream:#f0f1e5;
+  --ice:#b9ff66;--ice-bright:#d6ff9f;--body-lo:#7e857d;
+  --body-mid:#aeb5aa;--body-hi:#e6e9df;--radius:18px;
+}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 80% -10%,rgba(185,255,102,.08),transparent 28rem),var(--bg)}
+.headline,.wordmark,.stat-num,.thanks .steps b,.service-idx{font-family:'Space Grotesk','DM Sans',sans-serif}
+.headline{letter-spacing:-.055em;text-transform:none;line-height:.91}
+.wrap{max-width:1240px;padding:0 40px}
+.nav{top:14px;width:calc(100% - 32px);max-width:1240px;margin:0 auto;padding:13px 16px 13px 20px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(13,15,14,.72);backdrop-filter:blur(18px)}
+.wordmark{font-size:19px;letter-spacing:-.04em;color:var(--cream)} .wordmark span{color:var(--ice)}
+.navlinks{gap:26px;font-size:11px}.nav .btn{border-radius:999px!important}
+.btn{border-radius:999px;padding:16px 25px;letter-spacing:.02em;text-transform:none;font-size:14px;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.btn:hover{transform:translateY(-2px)}.btn-cream{background:var(--ice);color:#0b0d0c}.btn-cream:hover{opacity:1;box-shadow:0 12px 34px rgba(185,255,102,.17)}
+.btn-ghost{border-color:rgba(240,241,229,.22)}
+.hero{min-height:100vh;padding:145px 40px 60px;overflow:hidden;background:linear-gradient(90deg,rgba(11,13,12,.96) 0%,rgba(11,13,12,.72) 48%,rgba(11,13,12,.2) 100%),none center/cover no-repeat}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 65%,var(--bg) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:1240px}
+.eyebrow{font-style:normal;text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--ice-bright)}
+.hero h1{font-size:clamp(4.1rem,10vw,9rem);max-width:1050px}.hero h1 .l1,.hero h1 .l2{align-self:flex-start;text-align:left}.hero h1 .l2{color:var(--ice);margin-left:10%}
+.divider{display:none}.hero-lower{grid-template-columns:.8fr 1.2fr;max-width:920px;margin-top:58px;gap:70px}
+.hero-mission{font-size:12px;color:#c6ccc2}.hero-pitch p{font-size:17px;color:#e8eadf}.hero-foot{margin-top:82px;color:#b6bcb3}
+.section{padding:125px 40px}.stats-grid{gap:14px}
+.stat-card{min-height:260px;padding:25px;border-radius:var(--radius);border-color:rgba(255,255,255,.1);overflow:hidden;transition:transform .25s ease,border-color .25s ease}
+.stat-card:hover{transform:translateY(-5px);border-color:rgba(185,255,102,.34)}
+.stat-card.photo{background:linear-gradient(180deg,rgba(8,10,9,.05),rgba(8,10,9,.85)),none center/cover}
+.stat-card.photo:nth-child(4){background:linear-gradient(180deg,rgba(8,10,9,.05),rgba(8,10,9,.86)),none center/cover}
+.stat-num{font-size:clamp(2.7rem,5vw,4.7rem);letter-spacing:-.07em}
+.sec-head{margin-bottom:72px}.sec-head h2{font-size:clamp(3rem,6.7vw,6rem)}.sec-head h2 .l2{margin-left:12%;color:var(--ice)}
+.service-row{grid-template-columns:70px 1fr 230px;padding:28px 0;border-color:rgba(255,255,255,.12);transition:padding .25s ease}
+.service-row:hover{padding-left:14px}.service-title{font-family:'Space Grotesk';font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.04em}
+.service-thumb{width:210px;height:130px;border-radius:14px;background-position:center!important;background-size:cover!important;filter:saturate(.72);transition:filter .25s ease,transform .25s ease}
+.service-row:hover .service-thumb{filter:saturate(1);transform:scale(1.025)}
+.service-row:nth-of-type(2) .service-thumb{background-image:none}
+.service-row:nth-of-type(3) .service-thumb{background-image:none}
+.service-row:nth-of-type(4) .service-thumb{background-image:none}
+.service-row:nth-of-type(5) .service-thumb{background-image:none}
+.service-row:nth-of-type(6) .service-thumb{background-image:none}
+.case-row{grid-template-columns:.85fr 1.15fr;gap:70px;padding:66px 0}.case-client{color:var(--cream);font-family:'Space Grotesk';font-size:clamp(1.8rem,3vw,2.7rem);letter-spacing:-.04em}
+.case-stats b{font-family:'Space Grotesk';color:var(--ice)}.case-photo{height:340px;border-radius:var(--radius);background-position:center!important;background-size:cover!important}
+.case-row:nth-of-type(2) .case-photo{background-image:linear-gradient(180deg,transparent,rgba(0,0,0,.18)),none}
+.case-row:nth-of-type(3) .case-photo{background-image:linear-gradient(180deg,transparent,rgba(0,0,0,.18)),none}
+.banner{margin:30px 24px;border-radius:28px;overflow:hidden;padding:120px 40px;background:linear-gradient(90deg,rgba(213,255,159,.95),rgba(229,244,211,.86)),none center/cover}
+.banner::before,.banner::after{display:none}.banner .eyebrow{color:#26301e}.banner h2{font-size:clamp(3rem,6vw,5.7rem)}.banner h2 .l2{color:#31451e}.btn-dark{background:#0c0f0c;border-radius:999px}
+.team-grid{gap:16px}.team-card{transition:transform .25s ease}.team-card:hover{transform:translateY(-7px)}
+.team-photo{aspect-ratio:.82;border-radius:16px;background-position:center!important;background-size:cover!important;filter:grayscale(15%)}
+.team-card:nth-child(1) .team-photo{background-image:none}
+.team-card:nth-child(2) .team-photo{background-image:none}
+.team-card:nth-child(3) .team-photo{background-image:none}
+.team-card:nth-child(4) .team-photo{background-image:none}
+.team-name{font-family:'Space Grotesk';font-size:15px;margin-top:17px}
+.footer{padding-top:120px;background:#080a09}.footer-huge{font-family:'Space Grotesk';font-size:clamp(3rem,10vw,9rem);opacity:.11;letter-spacing:-.07em}
+.flow-screen{background:radial-gradient(circle at 85% 5%,rgba(185,255,102,.12),transparent 26rem),var(--bg)}
+.flow-card{max-width:720px;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:34px;background:rgba(20,24,21,.78);backdrop-filter:blur(18px);box-shadow:0 30px 90px rgba(0,0,0,.28)}
+.flow-close,.opt,.field input{border-radius:12px}.progress-fill{background:var(--ice)}.opt{background:#171b18;padding:19px 20px}.opt:hover{border-color:rgba(185,255,102,.55)}
+.opt.selected{border-color:var(--ice);background:#1c2419}.opt.selected .mark{border-color:var(--ice)}.opt.selected .mark::after{background:var(--ice)}
+.field input{background:#171b18}.field input:focus{border-color:var(--ice)}.thanks-icon{border-color:var(--ice);color:var(--ice)}
+@media(max-width:820px){
+ .wrap,.section{padding-left:22px;padding-right:22px}.nav{width:calc(100% - 20px)}.hero{padding:130px 22px 55px}
+ .hero h1{font-size:clamp(3.4rem,17vw,6rem)}.hero h1 .l2{margin-left:0}.hero-lower{grid-template-columns:1fr;gap:28px}
+ .service-row{grid-template-columns:42px 1fr}.service-thumb{display:none}.case-row{grid-template-columns:1fr;gap:28px}.case-photo{order:-1;height:250px}
+ .banner{margin:14px;padding:82px 24px}.flow-card{padding:24px;border-radius:18px}
+}
+
+
+/* ===== Unsplash image layer ===== */
+.hero-photo-card{
+  position:absolute;right:0;top:115px;width:min(33vw,430px);height:510px;
+  border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 30px 90px rgba(0,0,0,.35);z-index:-1;
+}
+.hero-photo-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(8,10,9,.75))}
+.hero-photo-card img,.service-thumb img,.case-photo img,.team-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo-card img{filter:saturate(.78) contrast(1.04)}
+.hero-photo-tag{position:absolute;left:20px;bottom:18px;z-index:2;font-size:10px;letter-spacing:.14em;color:#fff}
+.service-thumb,.case-photo,.team-photo{background:none!important;overflow:hidden}
+.service-thumb img{transition:transform .35s ease,filter .35s ease;filter:saturate(.82)}
+.service-row:hover .service-thumb img{transform:scale(1.055);filter:saturate(1)}
+.case-photo img{transition:transform .55s ease;filter:saturate(.82)}
+.case-row:hover .case-photo img{transform:scale(1.025)}
+.team-photo img{transition:transform .45s ease;filter:saturate(.8)}
+.team-card:hover .team-photo img{transform:scale(1.035);filter:saturate(1)}
+.unsplash-note{max-width:1240px;margin:0 auto;padding:0 40px 28px;color:#697068;font-size:10px;letter-spacing:.04em}
+@media(max-width:1050px){.hero-photo-card{opacity:.28;width:48vw}}
+@media(max-width:820px){.hero-photo-card{top:105px;right:-28%;width:85vw;height:560px;opacity:.23}.unsplash-note{padding:0 22px 24px}}
+
+
+/* ===== GLACIUS REAL-IMAGE EDITION ===== */
+.hero-photo-card{width:min(38vw,520px);height:570px;top:105px;border-radius:30px;transform:rotate(1.2deg)}
+.hero-photo-card img{object-position:center center;filter:saturate(.88) contrast(1.02)}
+.service-thumb{height:145px}
+.service-thumb img,.case-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.case-photo{height:390px}
+.case-photo img{filter:saturate(.86) contrast(1.02)}
+.team-grid{gap:14px}
+.team-card{border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px;background:linear-gradient(145deg,#111511,#0d100e)}
+.team-monogram{height:220px;border-radius:12px;display:grid;place-items:center;position:relative;overflow:hidden;background:
+radial-gradient(circle at 70% 20%,rgba(185,255,102,.14),transparent 30%),
+linear-gradient(135deg,#151b16,#0d100e)}
+.team-monogram::before{font:700 clamp(3rem,5vw,5.2rem)/1 'Space Grotesk';letter-spacing:-.08em;color:#b9ff66}
+.team-card:nth-child(1) .team-monogram::before{content:"ОК"}
+.team-card:nth-child(2) .team-monogram::before{content:"ДС"}
+.team-card:nth-child(3) .team-monogram::before{content:"МЛ"}
+.team-card:nth-child(4) .team-monogram::before{content:"АГ"}
+.team-monogram::after{content:"GLACIUS / TEAM";position:absolute;left:14px;bottom:12px;font-size:9px;letter-spacing:.14em;color:#747b73}
+@media(max-width:1050px){.hero-photo-card{opacity:.38;width:52vw}}
+@media(max-width:820px){.hero-photo-card{right:-28%;width:88vw;height:560px;opacity:.25}.team-monogram{height:180px}}
+
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     SCREEN 1 — LANDING
+     ========================================================= -->
+<div id="screen-landing">
+
+  <nav class="nav">
+    <div class="wordmark">GLAC<span>I</span>US</div>
+    <div class="navlinks">
+      <a href="#about">ПРО НАС</a>
+      <a href="#services">ПОСЛУГИ</a>
+      <a href="#cases">КЕЙСИ</a>
+      <a href="#team">КОМАНДА</a>
+      <a href="#footer">КОНТАКТИ</a>
+    </div>
+    <button class="btn btn-ghost" style="padding:10px 20px; font-size:11px;" onclick="goTo('quiz')">Пройти квіз</button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="about">
+    <div class="hero-inner">
+      <span class="eyebrow">( Full-cycle маркетингова агенція )</span>
+      <h1 class="headline">
+        <span class="l1">МАРКЕТИНГ</span>
+        <span class="l2">БЕЗ ВОДИ</span>
+      </h1>
+      <div class="divider"><span class="star">✦</span><span class="line"></span></div>
+
+      <div class="hero-lower">
+        <div class="hero-mission">
+          СТРАТЕГІЯ. ВИРОБНИЦТВО.<br>
+          ЗАКУПІВЛЯ РЕКЛАМИ.<br>
+          ОДНА КОМАНДА — ОДНА ВІДПОВІДАЛЬНІСТЬ.
+        </div>
+        <div class="hero-pitch">
+          <p>Ми будуємо маркетинг українського бізнесу під ключ — від аналітики та позиціонування до реклами, контенту та наскрізної аналітики. Без субпідрядників і без «ми зробимо охоплення».</p>
+          <button class="btn btn-cream" onclick="goTo('quiz')">Пройти квіз →</button>
+        </div>
+      </div>
+
+      
+<div class="hero-photo-card" aria-hidden="true">
+  <img src="assets/hero.jpg" alt="">
+  <div class="hero-photo-tag">CREATIVE × PERFORMANCE</div>
+</div>
+
+<div class="hero-foot">
+        <span>( Києв · Україна )</span>
+        <span>З 2017 РОКУ</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">років на ринку performance-маркетингу</div>
+          <div class="stat-num">8+</div>
+        </div>
+        <div class="stat-card photo">
+          <div class="stat-label" style="color:var(--body-mid);">завершених проєктів для українського та ЄС-бізнесу</div>
+          <div class="stat-num">120+</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">клієнтів продовжують співпрацю після першого кварталу</div>
+          <div class="stat-num">92%</div>
+        </div>
+        <div class="stat-card photo">
+          <div class="stat-label" style="color:var(--body-mid);">рекламного бюджету освоєно за останній рік</div>
+          <div class="stat-num">$4М+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">( Наші послуги )</span>
+        <h2 class="headline"><span class="l1">ЩО МИ</span><span class="l2">РОБИМО</span></h2>
+      </div>
+
+      <div class="service-row">
+        <div class="service-idx">01</div>
+        <div>
+          <div class="service-title">СТРАТЕГІЯ<br>ТА АНАЛІТИКА</div>
+          <div class="service-desc">Аудит поточного маркетингу, позиціонування, аналіз конкурентів і медіаплан на квартал наперед — до того, як витратити перший бюджет.</div>
+        </div>
+        <div class="service-thumb"><img src="assets/strategy-meeting.jpg" alt="GLACIUS service visual" loading="lazy"></div>
+      </div>
+      <div class="service-row">
+        <div class="service-idx">02</div>
+        <div>
+          <div class="service-title">PERFORMANCE-<br>РЕКЛАМА</div>
+          <div class="service-desc">Google Ads, Meta Ads, TikTok Ads. Закупівля трафіку з фокусом на вартість ліда й окупність, а не на охоплення заради звіту.</div>
+        </div>
+        <div class="service-thumb"><img src="assets/analytics.jpg" alt="GLACIUS service visual" loading="lazy"></div>
+      </div>
+      <div class="service-row">
+        <div class="service-idx">03</div>
+        <div>
+          <div class="service-title">SMM<br>ТА КОНТЕНТ</div>
+          <div class="service-desc">Контент-стратегія, зйомки, копірайтинг і ведення соцмереж — так, щоб бренд впізнавали, а не гортали.</div>
+        </div>
+        <div class="service-thumb"><img src="assets/social-commerce.jpg" alt="GLACIUS service visual" loading="lazy"></div>
+      </div>
+      <div class="service-row">
+        <div class="service-idx">04</div>
+        <div>
+          <div class="service-title">SEO ТА<br>ВЕБРОЗРОБКА</div>
+          <div class="service-desc">Технічний SEO-аудит, контент-маркетинг і сайти/лендинги, які конвертують трафік у заявки, а не просто «виглядають гарно».</div>
+        </div>
+        <div class="service-thumb"><img src="assets/web-ecommerce.jpg" alt="GLACIUS service visual" loading="lazy"></div>
+      </div>
+      <div class="service-row">
+        <div class="service-idx">05</div>
+        <div>
+          <div class="service-title">НАСКРІЗНА<br>АНАЛІТИКА</div>
+          <div class="service-desc">CRM, дашборди й наскрізна аналітика, що показують реальну ціну ліда й клієнта по кожному каналу — без здогадок.</div>
+        </div>
+        <div class="service-thumb"><img src="assets/ecommerce-growth.jpg" alt="GLACIUS service visual" loading="lazy"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="section" id="cases">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">( Наші кейси )</span>
+        <h2 class="headline"><span class="l1">РЕЗУЛЬТАТИ,</span><span class="l2">НЕ ОБІЦЯНКИ</span></h2>
+      </div>
+
+      <div class="case-row">
+        <div>
+          <div class="case-client">Мережа клінік «Пульс»</div>
+          <div class="case-stats">
+            <div><b>−41%</b><span>ціна ліда</span></div>
+            <div><b>×2.3</b><span>записів на прийом</span></div>
+            <div><b>6 міс</b><span>до окупності</span></div>
+          </div>
+          <div class="case-desc">Перебудували воронку від Google Ads до CRM клініки й прибрали канали, які лише «з’їдали» бюджет.</div>
+        </div>
+        <div class="case-photo"><img src="assets/analytics.jpg" alt="Marketing case — healthcare" loading="lazy"></div>
+      </div>
+
+      <div class="case-row">
+        <div>
+          <div class="case-client">E-commerce «Домашній двір»</div>
+          <div class="case-stats">
+            <div><b>+180%</b><span>онлайн-продажів</span></div>
+            <div><b>×1.7</b><span>середній чек</span></div>
+            <div><b>3 міс</b><span>перший результат</span></div>
+          </div>
+          <div class="case-desc">Запустили performance-рекламу і контент-план під сезонний попит, синхронізували з CRM для повторних продажів.</div>
+        </div>
+        <div class="case-photo"><img src="assets/ecommerce-growth.jpg" alt="Marketing case — e-commerce" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER -->
+  <section class="banner">
+    <div class="banner-inner">
+      <div>
+        <span class="eyebrow">( Безкоштовна консультація )</span>
+        <h2 class="headline"><span class="l1">ДІЗНАЙТЕСЯ,</span><span class="l2">ДЕ ВИ ВТРАЧАЄТЕ БЮДЖЕТ</span></h2>
+        <div class="banner-benefit">2 хвилини · 8 запитань · персональні рекомендації після проходження</div>
+      </div>
+      <div style="justify-self:start;">
+        <button class="btn btn-dark" onclick="goTo('quiz')">Пройти квіз →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section" id="team">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">( Наша команда )</span>
+        <h2 class="headline"><span class="l1">ЛЮДИ,</span><span class="l2">ЯКІ ЦЕ РОБЛЯТЬ</span></h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-monogram"></div><div class="team-name">Олена Коваль</div><div class="team-role">Керівниця стратегії</div></div>
+        <div class="team-card"><div class="team-monogram"></div><div class="team-name">Дмитро Сич</div><div class="team-role">Head of Performance</div></div>
+        <div class="team-card"><div class="team-monogram"></div><div class="team-name">Марія Литвин</div><div class="team-role">SMM-директорка</div></div>
+        <div class="team-card"><div class="team-monogram"></div><div class="team-name">Артем Гук</div><div class="team-role">Аналітик</div></div>
+      </div>
+      <div style="text-align:right; margin-top:36px;">
+        <button class="btn btn-ghost">Приєднатися до команди</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <span class="eyebrow">( Почнімо співпрацю )</span>
+          <h2 class="headline" style="font-size:clamp(1.8rem,4vw,2.6rem); color:var(--cream); max-width:440px;">ГОТОВІ РАХУВАТИ МАРКЕТИНГ У ГРИВНЯХ, А НЕ В ЛАЙКАХ?</h2>
+          <div style="margin-top:26px;"><button class="btn btn-cream" onclick="goTo('quiz')">Пройти квіз →</button></div>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Контакти</h4>
+            <a href="mailto:hello@glacius.agency">hello@glacius.agency</a>
+            <a href="tel:+380440000000">+380 44 000 00 00</a>
+            <p>Київ, вул. Хрещатик, 1</p>
+          </div>
+          <div class="footer-col">
+            <h4>Соцмережі</h4>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-huge">РАЗОМ ДО РЕЗУЛЬТАТУ</div>
+      <div class="footer-legal">© 2026 GLACIUS AGENCY. Усі права захищено.</div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- =========================================================
+     SCREEN 2 — QUIZ
+     ========================================================= -->
+<div id="screen-quiz" class="flow-screen">
+  <div class="flow-card">
+    <div class="flow-topbar">
+      <div class="wordmark" style="font-size:16px;">GLAC<span style="color:var(--ice);">I</span>US</div>
+      <button class="flow-close" onclick="goTo('landing')">Закрити ✕</button>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>Питання <b id="q-current">1</b> / <span id="q-total">8</span></span>
+        <span id="q-percent">13%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+
+    <div class="q-eyebrow">( Швидкий маркетинговий чек-ап )</div>
+    <div class="q-title" id="q-title">—</div>
+    <div class="options" id="q-options"></div>
+
+    <div class="flow-nav">
+      <a href="#" class="link-back" id="q-back" onclick="quizBack(event)">← Назад</a>
+      <span style="font-size:12px; color:var(--body-lo);">Оберіть варіант, щоб продовжити</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================================================
+     SCREEN 3 — TRANSITION TEASER
+     ========================================================= -->
+<div id="screen-teaser" class="flow-screen">
+  <div class="flow-card" style="max-width:560px;">
+    <div class="teaser-star">✦</div>
+    <div class="teaser">
+      <span class="eyebrow">( Готово )</span>
+      <h2>Бачимо кілька точок росту для вашого бізнесу</h2>
+      <p>За вашими відповідями ми вже можемо окреслити, де саме ви, ймовірно, втрачаєте бюджет і які канали варто підключити першими. Залиште контакти — і маркетолог підготує персональний план протягом 24 годин, безкоштовно.</p>
+      <button class="btn btn-cream" onclick="goTo('form')">Отримати персональний план →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================================================
+     SCREEN 4 — LEAD FORM
+     ========================================================= -->
+<div id="screen-form" class="flow-screen">
+  <div class="flow-card">
+    <div class="flow-topbar">
+      <div class="wordmark" style="font-size:16px;">GLAC<span style="color:var(--ice);">I</span>US</div>
+      <button class="flow-close" onclick="goTo('landing')">Закрити ✕</button>
+    </div>
+
+    <span class="eyebrow">( Персональний план )</span>
+    <h2 class="q-title" style="margin-bottom:8px;">Куди надіслати рекомендації?</h2>
+    <p style="color:var(--body-mid); font-size:14px; margin-bottom:34px;">Жодного спаму — лише розбір ваших відповідей і конкретні наступні кроки.</p>
+
+    <form id="lead-form" onsubmit="submitLead(event)">
+      <div class="field-row">
+        <div class="field">
+          <label for="f-name">Ім'я *</label>
+          <input id="f-name" name="name" type="text" placeholder="Ваше ім'я" required>
+        </div>
+        <div class="field">
+          <label for="f-phone">Телефон *</label>
+          <input id="f-phone" name="phone" type="tel" placeholder="+380 XX XXX XX XX" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-email">Email *</label>
+        <input id="f-email" name="email" type="email" placeholder="you@company.com" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-company">Компанія</label>
+          <input id="f-company" name="company" type="text" placeholder="Назва компанії">
+        </div>
+        <div class="field">
+          <label for="f-telegram">Telegram / інший месенджер</label>
+          <input id="f-telegram" name="telegram" type="text" placeholder="@nickname">
+        </div>
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="f-consent" required>
+        <label for="f-consent">Я погоджуюсь на обробку персональних даних та отримання персонального маркетингового плану від GLACIUS.</label>
+      </div>
+
+      <div class="form-error" id="form-error">Будь ласка, заповніть обов'язкові поля.</div>
+
+      <button type="submit" class="btn btn-cream" id="submit-btn" style="width:100%; justify-content:center;">Отримати план →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Hidden POST target: submitting a real <form> to this iframe reaches
+     Apps Script reliably even when fetch() is blocked by CORS/CSP/iframe
+     sandboxing (e.g. when embedded in Google Sites). No JS network call
+     involved, so nothing to be blocked. -->
+<iframe name="hidden-submit-frame" id="hidden-submit-frame" class="visually-hidden" title="submission target"></iframe>
+<form id="hidden-lead-form" action="" method="POST" target="hidden-submit-frame" class="visually-hidden">
+  <input type="hidden" name="name" id="hf-name">
+  <input type="hidden" name="phone" id="hf-phone">
+  <input type="hidden" name="email" id="hf-email">
+  <input type="hidden" name="company" id="hf-company">
+  <input type="hidden" name="telegram" id="hf-telegram">
+  <input type="hidden" name="answers" id="hf-answers">
+  <input type="hidden" name="source" id="hf-source">
+  <input type="hidden" name="submittedAt" id="hf-submittedAt">
+</form>
+
+
+<!-- =========================================================
+     SCREEN 5 — THANK YOU
+     ========================================================= -->
+<div id="screen-thanks" class="flow-screen">
+  <div class="flow-card" style="max-width:560px;">
+    <div class="thanks-icon">✓</div>
+    <div class="thanks">
+      <span class="eyebrow">( Дякуємо )</span>
+      <h2>Заявку прийнято</h2>
+      <p>Ми вже отримали ваші відповіді та контакти. Маркетолог GLACIUS розбере ваш кейс і підготує персональний план росту.</p>
+
+      <div class="steps">
+        <div><b>01</b> Зв'яжемось із вами протягом 24 годин у будній день</div>
+        <div><b>02</b> Проведемо коротку розмову — уточнимо деталі та цілі</div>
+        <div><b>03</b> Надішлемо персональний план з пріоритетними каналами</div>
+      </div>
+
+      <button class="btn btn-ghost" onclick="goTo('landing')">← На головну</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ============ CONFIG ============ */
+// Replace with your deployed Google Apps Script Web App URL (see Code.gs / instructions)
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZ5nZfFRng_T35C8Nk-4Bj33KuJ-SiifUHSd1yASlFYraZb9nBSgR4LGWTHJgPS-nZ/exec";
+
+/* ============ SCREEN SWITCHING ============ */
+function goTo(name){
+  document.getElementById('screen-landing').style.display = (name === 'landing') ? 'block' : 'none';
+  ['quiz','teaser','form','thanks'].forEach(id => {
+    document.getElementById('screen-' + id).classList.toggle('active', id === name);
+  });
+  window.scrollTo({top:0, behavior:'instant' in document.documentElement.style ? 'instant' : 'auto'});
+  if(name === 'quiz'){ resetQuiz(); }
+}
+
+/* ============ QUIZ DATA ============ */
+const QUESTIONS = [
+  {
+    title: "У якій сфері працює ваш бізнес?",
+    key: "industry",
+    options: ["E-commerce / роздрібна торгівля", "Послуги (b2c)", "B2B / виробництво", "IT / SaaS", "Інше"]
+  },
+  {
+    title: "Який зараз щомісячний бюджет на маркетинг?",
+    key: "budget",
+    options: ["До $1 000", "$1 000 – 3 000", "$3 000 – 10 000", "Понад $10 000"]
+  },
+  {
+    title: "Яка головна мета на найближчі 3–6 місяців?",
+    key: "goal",
+    options: ["Більше заявок / лідів", "Впізнаваність бренду", "Продажі в онлайн-магазині", "Вихід на нові ринки"]
+  },
+  {
+    title: "Які канали вже використовуєте?",
+    key: "channels",
+    options: ["Тільки соцмережі", "Google Ads / контекстна реклама", "SEO та контент", "Кілька каналів одночасно", "Ще нічого системного"]
+  },
+  {
+    title: "Чи є маркетолог у штаті?",
+    key: "team",
+    options: ["Немає, робимо самі", "Один спеціаліст", "Своя команда", "Працюємо з підрядниками"]
+  },
+  {
+    title: "Наскільки швидко хочете побачити перший результат?",
+    key: "speed",
+    options: ["1–3 місяці", "3–6 місяців", "6–12 місяців", "Довгостроково, поспіху немає"]
+  },
+  {
+    title: "Який середній чек чи цінність клієнта для вас?",
+    key: "aov",
+    options: ["До $50", "$50 – 200", "$200 – 1 000", "Понад $1 000"]
+  },
+  {
+    title: "Коли плануєте почати співпрацю з агенцією?",
+    key: "readiness",
+    options: ["Цього місяця", "У наступному кварталі", "Поки вивчаю ринок", "Ще не вирішили"]
+  }
+];
+
+let currentQ = 0;
+const answers = {};
+
+function resetQuiz(){
+  currentQ = 0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('q-total').textContent = QUESTIONS.length;
+  const pct = Math.round(((currentQ) / QUESTIONS.length) * 100);
+  document.getElementById('q-percent').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('q-title').textContent = q.title;
+  document.getElementById('q-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+
+  const optsWrap = document.getElementById('q-options');
+  optsWrap.innerHTML = '';
+  q.options.forEach(optText => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'opt' + (answers[q.key] === optText ? ' selected' : '');
+    btn.innerHTML = '<span class="mark"></span><span>' + optText + '</span>';
+    btn.onclick = () => selectOption(q.key, optText);
+    optsWrap.appendChild(btn);
+  });
+}
+
+function selectOption(key, value){
+  answers[key] = value;
+  renderQuestion();
+  setTimeout(() => {
+    if(currentQ < QUESTIONS.length - 1){
+      currentQ++;
+      renderQuestion();
+    } else {
+      document.getElementById('progress-fill').style.width = '100%';
+      setTimeout(() => goTo('teaser'), 250);
+    }
+  }, 260);
+}
+
+function quizBack(e){
+  e.preventDefault();
+  if(currentQ > 0){
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+/* ============ LEAD FORM SUBMIT ============ */
+// Submits via a hidden <form target="hidden-submit-frame"> instead of
+// fetch(). A real form POST to a target iframe is a plain browser
+// navigation, not an XHR/fetch call, so it isn't subject to CORS and
+// isn't blocked by the sandboxing some hosts (e.g. Google Sites embeds)
+// apply to script-initiated network requests. This is what was silently
+// failing before: fetch(..., {mode:'no-cors'}) resolves locally even when
+// the request never leaves the browser, so the UI advanced to the
+// thank-you screen without Apps Script ever receiving anything.
+const hiddenFrame = document.getElementById('hidden-submit-frame');
+const hiddenForm = document.getElementById('hidden-lead-form');
+hiddenForm.action = SCRIPT_URL;
+
+let awaitingSubmit = false;
+let submitFallbackTimer = null;
+
+hiddenFrame.addEventListener('load', () => {
+  if(!awaitingSubmit) return; // ignore the frame's initial blank load
+  awaitingSubmit = false;
+  clearTimeout(submitFallbackTimer);
+  finishSubmit();
+});
+
+function finishSubmit(){
+  const form = document.getElementById('lead-form');
+  const submitBtn = document.getElementById('submit-btn');
+  goTo('thanks');
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Отримати план →";
+  form.reset();
+}
+
+function submitLead(e){
+  e.preventDefault();
+  const errorEl = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-btn');
+
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const company = document.getElementById('f-company').value.trim();
+  const telegram = document.getElementById('f-telegram').value.trim();
+  const consent = document.getElementById('f-consent').checked;
+
+  if(!name || !phone || !email || !consent){
+    errorEl.style.display = 'block';
+    return;
+  }
+  errorEl.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Надсилаємо…';
+
+  document.getElementById('hf-name').value = name;
+  document.getElementById('hf-phone').value = phone;
+  document.getElementById('hf-email').value = email;
+  document.getElementById('hf-company').value = company;
+  document.getElementById('hf-telegram').value = telegram;
+  document.getElementById('hf-answers').value = JSON.stringify(answers);
+  document.getElementById('hf-source').value = 'GLACIUS landing quiz';
+  document.getElementById('hf-submittedAt').value = new Date().toISOString();
+
+  awaitingSubmit = true;
+  hiddenForm.submit();
+
+  // Fallback in case the iframe's load event doesn't fire (some browser/
+  // embed combinations suppress it) — still advance the user after a
+  // short wait so the flow never gets stuck.
+  submitFallbackTimer = setTimeout(() => {
+    if(awaitingSubmit){
+      awaitingSubmit = false;
+      finishSubmit();
+    }
+  }, 4000);
+}
+
+/* init */
+goTo('landing');
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const targets=document.querySelectorAll('.stat-card,.service-row,.case-row,.team-card,.sec-head');
+  const s=document.createElement('style');
+  s.textContent='.gl-reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}.gl-reveal.gl-in{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){.gl-reveal{opacity:1;transform:none;transition:none}}';
+  document.head.appendChild(s);
+  targets.forEach(el=>el.classList.add('gl-reveal'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('gl-in');io.unobserve(e.target)}}),{threshold:.08});
+  targets.forEach(el=>io.observe(el));
+});
+</script>
+
+<elevenlabs-convai agent-id="agent_2101m3fd9zkbemw86aaq50shcpac"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+</body>
+</html>
